@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.APIGatewayEvents;
+using System.Text.Json;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
@@ -8,9 +9,9 @@ namespace SimpleLambdaFunction;
 
 public class Function
 {
-    public Dictionary<string, object> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
+    public Dictionary<string, object> FunctionHandler(string path, ILambdaContext context)
     {
-        if (request.Path != null && request.Path.EndsWith("/hello"))
+        if (path != null && path.EndsWith("/hello"))
         {
             return new Dictionary<string, object>()
             {
@@ -20,7 +21,7 @@ public class Function
         }
         else
         {
-            var message = $"Bad request syntax or unsupported method. Request path: {request.Path}. HTTP method: {request.HttpMethod}";
+            var message = $"Bad request syntax or unsupported method. Request path: {path}. HTTP method: GET";
             return new Dictionary<string, object>()
             {
                 { "statusCode", 400 },
