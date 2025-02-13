@@ -13,7 +13,18 @@
   "env_variables": {},
   "publish_version": false,
   "alias": "${lambdas_alias_name}",
-  "url_config": {},
+  "url_config": {
+	  "auth_type": "NONE",
+	  "cors": {
+		  "allow_credentials": false,
+		  "allow_methods": [
+        "GET"
+      ],
+      "allow_origins": [
+        "*"
+      ]
+	  }
+  },
   "ephemeral_storage": 512,
   "tags": {}
 }
