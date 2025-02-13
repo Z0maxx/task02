@@ -8,22 +8,25 @@ namespace SimpleLambdaFunction;
 
 public class Function
 {
-    public Dictionary<string, object> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
+    public APIGatewayProxyResponse FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
     {
         if (request.Path.EndsWith("/hello"))
         {
-            return new Dictionary<string, object>()
+            return new APIGatewayProxyResponse
             {
-                { "statusCode", 200 },
-                { "message", "Hello from Lambda" },
+                StatusCode = 200,
+                Body = "{ \"statusCode\": 200, \"message\": \"Hello from Lambda\" }",
+                Headers = new Dictionary<string, string> { { "Content-Type", "text/plain" } }
             };
         }
         else
         {
-            return new Dictionary<string, object>()
+            var message = $"Bad request syntax or unsupported method. Request path: {request.Path}. HTTP method: {request.HttpMethod}";
+            return new APIGatewayProxyResponse
             {
-                { "statusCode", 400 },
-                { "message", $"Bad request syntax or unsupported method. Request path: {request.Path}. HTTP method: {request.HttpMethod}" },
+                StatusCode = 400,
+                Body = "{ \"statusCode\": 400, \"message\": \"" + message + "\" }",
+                Headers = new Dictionary<string, string> { { "Content-Type", "text/plain" } }
             };
         }
     }
