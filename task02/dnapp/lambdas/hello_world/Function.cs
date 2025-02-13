@@ -9,15 +9,11 @@ namespace SimpleLambdaFunction;
 
 public class Function
 {
-    public Dictionary<string, object> FunctionHandler(object input)
+    public Dictionary<string, object> FunctionHandler(APIGatewayHttpApiV2ProxyRequest request)
     {
-        System.Console.WriteLine(JsonSerializer.Serialize(input));
-        return new Dictionary<string, object>()
-            {
-                { "statusCode", 200 },
-                { "message", "Hello from Lambda" },
-            };
-        /*if (path != null && path.EndsWith("/hello"))
+        var path = request?.RequestContext?.Http?.Path;
+        var method = request?.RequestContext?.Http?.Method;
+        if (path != null && path.EndsWith("/hello"))
         {
             return new Dictionary<string, object>()
             {
@@ -27,12 +23,12 @@ public class Function
         }
         else
         {
-            var message = $"Bad request syntax or unsupported method. Request path: {path}. HTTP method: GET";
+            var message = $"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}";
             return new Dictionary<string, object>()
             {
                 { "statusCode", 400 },
                 { "message", message },
             };
-        }*/
+        }
     }
 }
