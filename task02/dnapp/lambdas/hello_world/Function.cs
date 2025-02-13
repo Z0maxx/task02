@@ -16,7 +16,7 @@ public class Function
             {
                 StatusCode = 200,
                 Body = "{ \"statusCode\": 200, \"message\": \"Hello from Lambda\" }",
-                Headers = new Dictionary<string, string> { { "Content-Type", "text/plain" } }
+                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
             };
         }
         else
@@ -26,7 +26,7 @@ public class Function
             {
                 StatusCode = 400,
                 Body = "{ \"statusCode\": 400, \"message\": \"" + message + "\" }",
-                Headers = new Dictionary<string, string> { { "Content-Type", "text/plain" } }
+                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
             };
         }
     }
