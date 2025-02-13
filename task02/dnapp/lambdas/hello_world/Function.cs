@@ -10,28 +10,41 @@ namespace SimpleLambdaFunction;
 
 public class Function
 {
-    public Dictionary<string, object> FunctionHandler(APIGatewayHttpApiV2ProxyRequest request)
+    public APIGatewayHttpApiV2ProxyResponse FunctionHandler(APIGatewayHttpApiV2ProxyRequest request)
     {
         Console.WriteLine(JsonSerializer.Serialize(request));
-        Dictionary<string, object> response;
+        APIGatewayHttpApiV2ProxyResponse response;
+        Dictionary<string, object> dict;
         string path = request.RequestContext.Http.Path;
         string method = request.RequestContext.Http.Method;
         Console.WriteLine($"Path: {path}, Method: {method}");
         if (path != null && path.EndsWith("/hello"))
         {
-            response = new Dictionary<string, object>()
+            dict = new Dictionary<string, object>()
             {
                 { "statusCode", 200 },
                 { "message", "Hello from Lambda" },
+            };
+            response = new APIGatewayHttpApiV2ProxyResponse()
+            {
+                StatusCode = 200,
+                Body = JsonSerializer.Serialize(dict),
+                Headers = new Dictionary<string, string>() { { "Content-Type", "text/plain" } }
             };
         }
         else
         {
             var message = $"Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}";
-            response = new Dictionary<string, object>()
+            dict = new Dictionary<string, object>()
             {
                 { "statusCode", 400 },
                 { "message", message },
+            };
+            response = new APIGatewayHttpApiV2ProxyResponse()
+            {
+                StatusCode = 400,
+                Body = JsonSerializer.Serialize(dict),
+                Headers = new Dictionary<string, string>() { { "Content-Type", "text/plain" } }
             };
         }
 
