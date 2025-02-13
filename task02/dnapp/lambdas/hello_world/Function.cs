@@ -9,9 +9,15 @@ namespace SimpleLambdaFunction;
 
 public class Function
 {
-    public Dictionary<string, object> FunctionHandler(string path, ILambdaContext context)
+    public Dictionary<string, object> FunctionHandler(object input)
     {
-        if (path != null && path.EndsWith("/hello"))
+        System.Console.WriteLine(JsonSerializer.Serialize(input));
+        return new Dictionary<string, object>()
+            {
+                { "statusCode", 200 },
+                { "message", "Hello from Lambda" },
+            };
+        /*if (path != null && path.EndsWith("/hello"))
         {
             return new Dictionary<string, object>()
             {
@@ -27,6 +33,6 @@ public class Function
                 { "statusCode", 400 },
                 { "message", message },
             };
-        }
+        }*/
     }
 }
