@@ -11,22 +11,10 @@
   "dependencies": [],
   "event_sources": [],
   "env_variables": {},
-  "publish_version": false,
+  "publish_version": true,
   "alias": "${lambdas_alias_name}",
   "url_config": {
-	  "auth_type": "NONE",
-	  "cors": {
-		  "allow_credentials": false,
-		  "allow_methods": [
-        "GET"
-      ],
-      "allow_origins": [
-        "*"
-      ],
-      "allow_headers": [
-        "Content-Type"
-      ]
-	  }
+	  "auth_type": "NONE"
   },
   "ephemeral_storage": 512,
   "tags": {}
