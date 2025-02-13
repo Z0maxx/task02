@@ -10,7 +10,7 @@ public class Function
 {
     public Dictionary<string, object> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
     {
-        if (request.Path == "/hello")
+        if (request.Path.EndsWith("/hello"))
         {
             return new Dictionary<string, object>()
             {
