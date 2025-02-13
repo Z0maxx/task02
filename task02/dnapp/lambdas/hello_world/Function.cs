@@ -10,14 +10,13 @@ public class Function
 {
     public Dictionary<string, object> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
     {
-        return new Dictionary<string, object>()
+        if (request.Path != null && request.Path.EndsWith("/hello"))
+        {
+            return new Dictionary<string, object>()
             {
                 { "statusCode", 200 },
                 { "message", "Hello from Lambda" },
             };
-        /*if (request.Path.EndsWith("/hello"))
-        {
-            
         }
         else
         {
@@ -27,6 +26,6 @@ public class Function
                 { "statusCode", 400 },
                 { "message", message },
             };
-        }*/
+        }
     }
 }
